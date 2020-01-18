@@ -40,7 +40,8 @@ LIB32="${ROOT}usr/lib"
 XMOD="${LIB}/xorg/modules"
 XLIB="$XMOD/extensions"
 NV_VERSION='PKGVERSION' # This will be replaced in the build script
-GL_VERSION="1.2.0"
+GL_VERSION="1.7.0"
+EGL_VERSION="1.1.0"
 NV_CONF="/usr/share/X11/xorg.conf.d/10-nvidia.conf"
 
 save_GL(){
@@ -52,11 +53,11 @@ save_GL(){
     mv libGL.so.$NV_VERSION-nvidia libGL.so.$NV_VERSION
     ln -sf libGL.so.$NV_VERSION libGL.so.1
     ln -sf libGL.so.$NV_VERSION libGL.so
-    if [ ! -e libEGL.so.1.0.0-xorg ]; then
-       mv libEGL.so.1.0.0 libEGL.so.1.0.0-xorg
+    if [ ! -e libEGL.so.$EGL_VERSION-xorg ]; then
+       mv libEGL.so.$EGL_VERSION libEGL.so.$EGL_VERSION-xorg
     fi
     mv libEGL.so.$NV_VERSION-nvidia libEGL.so.$NV_VERSION
-    ln -sf libEGL.so.$NV_VERSION libGEL.so.1.0.0
+    ln -sf libEGL.so.$NV_VERSION libEGL.so.$EGL_VERSION
     ln -sf libEGL.so.$NV_VERSION libEGL.so.1
     ln -sf libEGL.so.$NV_VERSION libEGL.so
   fi
@@ -71,10 +72,10 @@ save_GL(){
 	echo WARNING: libGL.so is missing.
      fi
      mv libEGL.so.$NV_VERSION libEGL.so.$NV_VERSION-nvidia
-     if [ -e libEGL.so.1.0.0-xorg ]; then
-         mv libEGL.so.1.0.0-xorg libEGL.so.1.0.0
-         ln -sf libEGL.so.1.0.0 libEGL.so.1
-         ln -sf libEGL.so.1.0.0 libEGL.so
+     if [ -e libEGL.so.$EGL_VERSION-xorg ]; then
+         mv libEGL.so.$EGL_VERSION-xorg libEGL.so.$EGL_VERSION
+         ln -sf libEGL.so.$EGL_VERSION libEGL.so.1
+         ln -sf libEGL.so.$EGL_VERSION libEGL.so
      fi
 
   fi
